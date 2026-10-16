@@ -1,44 +1,52 @@
-import DepthCard from './DepthCard.jsx';
-
-// One project. Links are shown only when verified. Otherwise a plain
-// "pending" note is displayed, so no fake link is ever rendered.
+// One project card. Links appear only when they exist. A demo that has not been
+// verified is shown as a clear pending note, never as a fake button.
 export default function ProjectCard({ project }) {
   return (
-    <article className="reveal project-card-wrap">
-      <DepthCard layer="mid" tilt float={false} className="project-card">
-        <div className="project-card__header">
-          <h3>{project.title}</h3>
-          <span className="badge">{project.status}</span>
+    <div className="reveal project-card-wrap">
+      <article className="project-card">
+        <div className={`project-card__preview project-card__preview--${project.preview}`} aria-hidden="true">
+          <span className="project-card__initial">{project.initials}</span>
         </div>
-        <p className="muted">{project.description}</p>
 
-        {project.technologies.length > 0 ? (
-          <ul className="tag-list">
+        <div className="project-card__body">
+          <p className="project-card__category">{project.category}</p>
+          <h3>{project.title}</h3>
+          <p className="muted">{project.description}</p>
+
+          <ul className="tag-list" aria-label={`Technologies used in ${project.title}`}>
             {project.technologies.map((tech) => (
               <li key={tech}>{tech}</li>
             ))}
           </ul>
-        ) : (
-          <p className="muted small">Technologies: pending owner confirmation.</p>
-        )}
 
-        <div className="project-card__links">
-          {project.demoUrl ? (
-            <a href={project.demoUrl} target="_blank" rel="noopener noreferrer">
-              Live demo
-            </a>
-          ) : (
-            <span className="muted small">Demo link pending verification</span>
-          )}
-          {project.repoUrl ? (
-            <a href={project.repoUrl} target="_blank" rel="noopener noreferrer">
-              Repository
-            </a>
-          ) : (
-            <span className="muted small">Repository link pending verification</span>
-          )}
+          <div className="project-card__actions">
+            {project.repoUrl && (
+              <a
+                className="button button--ghost button--small"
+                href={project.repoUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label={`View repository for ${project.title} (opens in a new tab)`}
+              >
+                View Repository
+              </a>
+            )}
+            {project.demoUrl ? (
+              <a
+                className="button button--primary button--small"
+                href={project.demoUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label={`Live demo of ${project.title} (opens in a new tab)`}
+              >
+                Live Demo
+              </a>
+            ) : (
+              <span className="pending-note">Live demo pending verification</span>
+            )}
+          </div>
         </div>
-      </DepthCard>
-    </article>
+      </article>
+    </div>
   );
 }

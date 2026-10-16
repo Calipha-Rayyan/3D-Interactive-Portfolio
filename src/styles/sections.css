@@ -1,18 +1,17 @@
 /* =====================================================================
-   Hero: layered 3D "Depth Stack"
+   Hero: layered CSS 3D "Depth Stack"
    ===================================================================== */
 .hero {
   min-height: calc(100vh - var(--nav-height));
   min-height: calc(100svh - var(--nav-height));
   display: flex;
   align-items: center;
-  scroll-margin-top: var(--nav-height);
 }
 
 .hero__grid {
   display: grid;
   grid-template-columns: 1.2fr 1fr;
-  gap: clamp(24px, 5vw, 64px);
+  gap: clamp(28px, 5vw, 64px);
   align-items: center;
 }
 
@@ -24,9 +23,14 @@
 }
 
 .hero__tagline {
-  font-size: clamp(1rem, 2.2vw, 1.25rem);
+  font-size: clamp(1rem, 2.2vw, 1.2rem);
   color: var(--color-accent);
   font-weight: 500;
+}
+
+.hero__intro {
+  color: var(--color-text-muted);
+  font-size: clamp(1rem, 1.6vw, 1.05rem);
 }
 
 .hero__actions {
@@ -36,7 +40,32 @@
   margin-top: 24px;
 }
 
-/* The stage gives the layers real depth using perspective. */
+.hero__options {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px 16px;
+  margin-top: 20px;
+}
+
+.motion-toggle {
+  min-height: 44px;
+  padding: 0 16px;
+  border-radius: 999px;
+  border: 1px solid var(--color-border);
+  background: var(--color-glass);
+  color: var(--color-text);
+  font: inherit;
+  font-size: 0.9rem;
+  cursor: pointer;
+}
+
+.motion-toggle[aria-pressed='true'] {
+  color: var(--color-accent);
+  border-color: var(--color-accent);
+}
+
+/* The stage gives the layers depth with perspective. */
 .hero__stage {
   position: relative;
   height: clamp(300px, 40vw, 420px);
@@ -44,7 +73,7 @@
   transform-style: preserve-3d;
 }
 
-/* Each layer is pushed back or forward in 3D space. */
+/* Each layer is positioned in the stage and pushed back or forward in 3D. */
 .depth-card {
   position: absolute;
   will-change: transform;
@@ -62,7 +91,7 @@
     translateZ(var(--lift, 0px))
     rotateX(var(--rx, 0deg))
     rotateY(var(--ry, 0deg));
-  transition: transform 0.4s ease-out;
+  transition: transform 0.45s ease-out;
 }
 
 .depth-card__tilt.is-lifted {
@@ -75,13 +104,12 @@
   border-radius: 24px;
   padding: 24px;
   overflow: hidden;
-  background: linear-gradient(160deg, rgba(20, 90, 96, 0.55), rgba(6, 38, 43, 0.75));
+  background: linear-gradient(160deg, rgba(20, 90, 96, 0.55), rgba(6, 38, 43, 0.78));
   border: 1px solid var(--color-border);
   box-shadow: 0 24px 60px rgba(0, 0, 0, 0.35);
   backdrop-filter: blur(6px);
 }
 
-/* Floating motion (CSS only, gentle and slow) */
 .depth-card__float.is-floating {
   animation: float 7s ease-in-out infinite;
 }
@@ -112,18 +140,18 @@
 .hero__deco-lines {
   width: 100%;
   height: 100%;
+  border-radius: 16px;
   background-image: repeating-linear-gradient(
     135deg,
     rgba(94, 234, 212, 0.12) 0 1px,
     transparent 1px 22px
   );
-  border-radius: 16px;
 }
 
 .hero__chip-title {
   font-family: var(--font-display);
   color: var(--color-accent);
-  font-size: 0.85rem;
+  font-size: 0.82rem;
   text-transform: uppercase;
   letter-spacing: 0.1em;
   margin-bottom: 12px;
@@ -142,51 +170,188 @@
 }
 
 /* =====================================================================
-   Projects
+   About
    ===================================================================== */
-.project-card-wrap {
+.timeline {
+  list-style: none;
+  margin: 0;
+  padding: 0 0 0 16px;
+  border-left: 2px solid var(--color-border);
+}
+
+.timeline li {
   position: relative;
+  padding-bottom: 4px;
 }
 
-.project-card {
-  position: relative;
-  height: auto;
-  min-height: 260px;
-}
-
-.project-card .depth-card__face {
-  position: relative;
-  height: auto;
-  min-height: 260px;
-  background: var(--color-glass);
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-  backdrop-filter: blur(6px);
-}
-
-.project-card .depth-card__float,
-.project-card .depth-card__tilt {
-  height: auto;
-}
-
-.project-card__header {
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
-  gap: 12px;
-  flex-wrap: wrap;
-}
-
-.project-card__links {
-  margin-top: auto;
-  display: flex;
-  gap: 16px;
-  flex-wrap: wrap;
+.timeline li::before {
+  content: '';
+  position: absolute;
+  left: -23px;
+  top: 6px;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--color-accent);
 }
 
 /* =====================================================================
-   Reveal animation (content fades in while scrolling)
+   Skills
+   ===================================================================== */
+.skill-card__note {
+  margin-top: 14px;
+  margin-bottom: 0;
+}
+
+.skill-card .tag-list li {
+  transition: background 0.2s ease;
+}
+
+.skill-card:hover .tag-list li {
+  background: rgba(94, 234, 212, 0.16);
+}
+
+/* =====================================================================
+   Projects
+   ===================================================================== */
+.project-card-wrap {
+  height: 100%;
+}
+
+.project-card {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  background: var(--color-glass);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  overflow: hidden;
+  box-shadow: var(--shadow-soft);
+  transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.project-card:hover,
+.project-card:focus-within {
+  transform: translateY(-4px);
+  border-color: rgba(94, 234, 212, 0.45);
+  box-shadow: 0 24px 50px rgba(0, 0, 0, 0.36);
+}
+
+/* Original abstract previews built with CSS (no screenshots or stock images) */
+.project-card__preview {
+  position: relative;
+  height: 150px;
+  display: flex;
+  align-items: flex-end;
+  padding: 16px 20px;
+  border-bottom: 1px solid var(--color-border);
+  background-color: var(--color-bg-soft);
+  background-image: repeating-linear-gradient(
+    0deg,
+    rgba(94, 234, 212, 0.06) 0 1px,
+    transparent 1px 18px
+  );
+}
+
+.project-card__initial {
+  font-family: var(--font-display);
+  font-size: 3rem;
+  font-weight: 700;
+  line-height: 1;
+  color: rgba(94, 234, 212, 0.85);
+}
+
+.project-card__preview--blog {
+  background-image:
+    linear-gradient(180deg, rgba(6, 38, 43, 0.2), rgba(6, 38, 43, 0.9)),
+    repeating-linear-gradient(90deg, rgba(94, 234, 212, 0.1) 0 2px, transparent 2px 28px);
+}
+
+.project-card__preview--knowledge {
+  background-image:
+    radial-gradient(circle at 20% 30%, rgba(94, 234, 212, 0.25) 0 3px, transparent 4px),
+    radial-gradient(circle at 60% 60%, rgba(94, 234, 212, 0.25) 0 3px, transparent 4px),
+    radial-gradient(circle at 80% 25%, rgba(94, 234, 212, 0.25) 0 3px, transparent 4px),
+    linear-gradient(180deg, rgba(6, 38, 43, 0.2), rgba(6, 38, 43, 0.9));
+}
+
+.project-card__preview--analytics {
+  background-image:
+    linear-gradient(180deg, rgba(6, 38, 43, 0.1), rgba(6, 38, 43, 0.9)),
+    linear-gradient(90deg, rgba(94, 234, 212, 0.35) 0 12%, transparent 12% 20%, rgba(94, 234, 212, 0.2) 20% 32%, transparent 32% 40%, rgba(94, 234, 212, 0.45) 40% 52%, transparent 52% 60%, rgba(94, 234, 212, 0.25) 60% 72%, transparent 72%);
+  background-size: 100% 100%, 100% 60%;
+  background-position: 0 0, 0 100%;
+  background-repeat: no-repeat;
+}
+
+.project-card__preview--planner {
+  background-image:
+    linear-gradient(180deg, rgba(6, 38, 43, 0.2), rgba(6, 38, 43, 0.9)),
+    repeating-linear-gradient(90deg, rgba(94, 234, 212, 0.14) 0 calc(14.28% - 1px), transparent calc(14.28% - 1px) 14.28%);
+}
+
+.project-card__body {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: clamp(20px, 3vw, 28px);
+}
+
+.project-card__body h3 {
+  margin: 0;
+}
+
+.project-card__category {
+  margin: 0;
+  font-size: 0.78rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--color-accent);
+}
+
+.project-card__actions {
+  margin-top: auto;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px;
+  padding-top: 8px;
+}
+
+.pending-note {
+  font-size: 0.88rem;
+  color: var(--color-text-muted);
+  font-style: italic;
+}
+
+/* =====================================================================
+   Contact
+   ===================================================================== */
+.contact-card {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 20px;
+}
+
+.contact-links {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 22px;
+}
+
+.contact-links a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+}
+
+/* =====================================================================
+   Reveal (content fades in while scrolling)
    ===================================================================== */
 .reveal {
   opacity: 0;
@@ -203,6 +368,11 @@
    Responsive
    ===================================================================== */
 @media (max-width: 860px) {
+  .hero {
+    min-height: auto;
+    padding-top: 48px;
+  }
+
   .hero__grid {
     grid-template-columns: 1fr;
   }
@@ -222,31 +392,34 @@
 }
 
 @media (max-width: 520px) {
-  .hero {
-    min-height: auto;
-    padding-top: 40px;
-  }
-
   .hero__stage {
     height: 260px;
-  }
-
-  .hero__chip-title {
-    font-size: 0.75rem;
   }
 
   .depth-card__face {
     padding: 16px;
   }
 
+  .hero__chip-title {
+    font-size: 0.72rem;
+  }
+
   .tag-list li {
     font-size: 0.8rem;
     padding: 4px 9px;
   }
+
+  .project-card__preview {
+    height: 120px;
+  }
+
+  .hero__actions .button {
+    width: 100%;
+  }
 }
 
 /* =====================================================================
-   Reduced motion: no floating, no tilt, no reveal animation, no scroll parallax
+   Reduced motion: no floating, tilt, reveal, hover lift, or smooth scroll
    ===================================================================== */
 @media (prefers-reduced-motion: reduce) {
   html {
@@ -272,6 +445,13 @@
 
   .reveal {
     opacity: 1;
+    transform: none;
+  }
+
+  .project-card:hover,
+  .project-card:focus-within,
+  .button--primary:hover,
+  .button--ghost:hover {
     transform: none;
   }
 }

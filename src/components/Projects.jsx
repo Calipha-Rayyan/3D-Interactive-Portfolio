@@ -6,10 +6,11 @@ export default function Projects() {
     <section id="projects" className="section">
       <div className="container">
         <p className="section-kicker reveal">Projects</p>
-        <h2 className="reveal">Selected work</h2>
-        <p className="muted reveal">
-          Repository links come from my public GitHub account. Live demos will be added once verified.
+        <h2 className="reveal">Featured work</h2>
+        <p className="muted reveal section-intro">
+          Repository links come from my public GitHub account. Live demos will be added once they are verified.
         </p>
+
         <div className="projects__grid">
           {projects.map((project) => (
             <ProjectCard key={project.title} project={project} />

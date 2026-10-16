@@ -1,4 +1,4 @@
-import { profile } from '../data/portfolio.js';
+import { contact, profile } from '../data/portfolio.js';
 
 export default function Footer() {
   return (
@@ -7,7 +7,11 @@ export default function Footer() {
         <span>
           © {new Date().getFullYear()} {profile.name}
         </span>
-        <a href="#home">Back to top</a>
+        <nav className="footer__links" aria-label="Footer">
+          <a href={contact.linkedin} target="_blank" rel="noopener noreferrer">LinkedIn</a>
+          <a href={contact.github} target="_blank" rel="noopener noreferrer">GitHub</a>
+          <a href="#home">Back to top</a>
+        </nav>
       </div>
     </footer>
   );
