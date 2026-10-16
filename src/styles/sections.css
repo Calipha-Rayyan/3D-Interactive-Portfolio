@@ -1,0 +1,277 @@
+/* =====================================================================
+   Hero: layered 3D "Depth Stack"
+   ===================================================================== */
+.hero {
+  min-height: calc(100vh - var(--nav-height));
+  min-height: calc(100svh - var(--nav-height));
+  display: flex;
+  align-items: center;
+  scroll-margin-top: var(--nav-height);
+}
+
+.hero__grid {
+  display: grid;
+  grid-template-columns: 1.2fr 1fr;
+  gap: clamp(24px, 5vw, 64px);
+  align-items: center;
+}
+
+.hero__name {
+  background: linear-gradient(90deg, var(--color-text), var(--color-accent));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.hero__tagline {
+  font-size: clamp(1rem, 2.2vw, 1.25rem);
+  color: var(--color-accent);
+  font-weight: 500;
+}
+
+.hero__actions {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-top: 24px;
+}
+
+/* The stage gives the layers real depth using perspective. */
+.hero__stage {
+  position: relative;
+  height: clamp(300px, 40vw, 420px);
+  perspective: 1000px;
+  transform-style: preserve-3d;
+}
+
+/* Each layer is pushed back or forward in 3D space. */
+.depth-card {
+  position: absolute;
+  will-change: transform;
+}
+
+.depth-card__float,
+.depth-card__tilt {
+  width: 100%;
+  height: 100%;
+  transform-style: preserve-3d;
+}
+
+.depth-card__tilt {
+  transform:
+    translateZ(var(--lift, 0px))
+    rotateX(var(--rx, 0deg))
+    rotateY(var(--ry, 0deg));
+  transition: transform 0.4s ease-out;
+}
+
+.depth-card__tilt.is-lifted {
+  --lift: 28px;
+}
+
+.depth-card__face {
+  width: 100%;
+  height: 100%;
+  border-radius: 24px;
+  padding: 24px;
+  overflow: hidden;
+  background: linear-gradient(160deg, rgba(20, 90, 96, 0.55), rgba(6, 38, 43, 0.75));
+  border: 1px solid var(--color-border);
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.35);
+  backdrop-filter: blur(6px);
+}
+
+/* Floating motion (CSS only, gentle and slow) */
+.depth-card__float.is-floating {
+  animation: float 7s ease-in-out infinite;
+}
+
+@keyframes float {
+  0%, 100% { transform: translate3d(0, 0, 0); }
+  50%      { transform: translate3d(0, -10px, 0); }
+}
+
+.hero__layer-back {
+  inset: 0 6% 10% 14%;
+}
+
+.hero__layer-mid {
+  inset: 14% 22% 22% 0;
+  z-index: 2;
+}
+
+.hero__layer-front {
+  inset: 18% 0 2% 22%;
+  z-index: 3;
+}
+
+.hero__layer-back .depth-card__face {
+  background: linear-gradient(160deg, rgba(94, 234, 212, 0.08), rgba(6, 38, 43, 0.2));
+}
+
+.hero__deco-lines {
+  width: 100%;
+  height: 100%;
+  background-image: repeating-linear-gradient(
+    135deg,
+    rgba(94, 234, 212, 0.12) 0 1px,
+    transparent 1px 22px
+  );
+  border-radius: 16px;
+}
+
+.hero__chip-title {
+  font-family: var(--font-display);
+  color: var(--color-accent);
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  margin-bottom: 12px;
+}
+
+.monogram {
+  width: 100%;
+  height: 100%;
+  display: grid;
+  place-items: center;
+  font-family: var(--font-display);
+  font-size: clamp(3.5rem, 10vw, 6rem);
+  font-weight: 700;
+  color: var(--color-accent);
+  letter-spacing: 0.04em;
+}
+
+/* =====================================================================
+   Projects
+   ===================================================================== */
+.project-card-wrap {
+  position: relative;
+}
+
+.project-card {
+  position: relative;
+  height: auto;
+  min-height: 260px;
+}
+
+.project-card .depth-card__face {
+  position: relative;
+  height: auto;
+  min-height: 260px;
+  background: var(--color-glass);
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  backdrop-filter: blur(6px);
+}
+
+.project-card .depth-card__float,
+.project-card .depth-card__tilt {
+  height: auto;
+}
+
+.project-card__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.project-card__links {
+  margin-top: auto;
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+/* =====================================================================
+   Reveal animation (content fades in while scrolling)
+   ===================================================================== */
+.reveal {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 0.7s ease, transform 0.7s ease;
+}
+
+.reveal.is-visible {
+  opacity: 1;
+  transform: none;
+}
+
+/* =====================================================================
+   Responsive
+   ===================================================================== */
+@media (max-width: 860px) {
+  .hero__grid {
+    grid-template-columns: 1fr;
+  }
+
+  .hero__stage {
+    height: clamp(260px, 60vw, 340px);
+    order: -1;
+  }
+
+  .hero__layer-mid {
+    inset: 12% 18% 20% 0;
+  }
+
+  .hero__layer-front {
+    inset: 16% 0 2% 18%;
+  }
+}
+
+@media (max-width: 520px) {
+  .hero {
+    min-height: auto;
+    padding-top: 40px;
+  }
+
+  .hero__stage {
+    height: 260px;
+  }
+
+  .hero__chip-title {
+    font-size: 0.75rem;
+  }
+
+  .depth-card__face {
+    padding: 16px;
+  }
+
+  .tag-list li {
+    font-size: 0.8rem;
+    padding: 4px 9px;
+  }
+}
+
+/* =====================================================================
+   Reduced motion: no floating, no tilt, no reveal animation, no scroll parallax
+   ===================================================================== */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+
+  .depth-card__float.is-floating {
+    animation: none;
+  }
+
+  .depth-card__tilt {
+    transform: none;
+  }
+
+  .reveal {
+    opacity: 1;
+    transform: none;
+  }
+}
