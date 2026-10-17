@@ -6,16 +6,15 @@ import Skills from './components/Skills.jsx';
 import Projects from './components/Projects.jsx';
 import Contact from './components/Contact.jsx';
 import Footer from './components/Footer.jsx';
+import FloatingWhatsApp from './components/FloatingWhatsApp.jsx';
 import useReveal from './hooks/useReveal.js';
-import useActiveSection from './hooks/useActiveSection.js';
+import useNavigation from './hooks/useNavigation.js';
 
 const SECTION_IDS = ['home', 'about', 'skills', 'projects', 'contact'];
 
-// The page is a single scrolling document. Each section has an id that the
-// navbar links to, and the navbar highlights the section currently on screen.
 export default function App() {
   useReveal();
-  const activeId = useActiveSection(SECTION_IDS);
+  const { activeId, scrollToSection } = useNavigation(SECTION_IDS);
 
   return (
     <>
@@ -23,15 +22,16 @@ export default function App() {
         Skip to main content
       </a>
       <ProgressBar />
-      <Navbar activeId={activeId} />
+      <Navbar activeId={activeId} onNavigate={scrollToSection} />
       <main id="main">
-        <Hero />
+        <Hero onNavigate={scrollToSection} />
         <About />
         <Skills />
         <Projects />
         <Contact />
       </main>
-      <Footer />
+      <Footer onNavigate={scrollToSection} />
+      <FloatingWhatsApp />
     </>
   );
 }

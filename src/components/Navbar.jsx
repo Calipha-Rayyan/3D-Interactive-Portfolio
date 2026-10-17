@@ -1,9 +1,8 @@
 import { useEffect, useRef, useState } from 'react';
-import { navItems, profile } from '../data/portfolio.js';
+import { navItems, profile, contact } from '../data/portfolio.js';
+import { WhatsAppIcon, GitHubIcon, LinkedInIcon } from './Icons.jsx';
 
-// Sticky header. On small screens the links move into a menu button.
-// Escape closes the menu and returns focus to the button.
-export default function Navbar({ activeId }) {
+export default function Navbar({ activeId, onNavigate }) {
   const [open, setOpen] = useState(false);
   const toggleRef = useRef(null);
 
@@ -15,50 +14,144 @@ export default function Navbar({ activeId }) {
         toggleRef.current?.focus();
       }
     };
+    const onScroll = () => {
+      setOpen(false);
+    };
+    const onOutsideClick = (e) => {
+      if (!e.target.closest('.navbar')) {
+        setOpen(false);
+      }
+    };
     document.addEventListener('keydown', onKey);
-    return () => document.removeEventListener('keydown', onKey);
+    window.addEventListener('scroll', onScroll, { passive: true });
+    document.addEventListener('click', onOutsideClick);
+    return () => {
+      document.removeEventListener('keydown', onKey);
+      window.removeEventListener('scroll', onScroll);
+      document.removeEventListener('click', onOutsideClick);
+    };
   }, [open]);
 
-  const close = () => setOpen(false);
+  // Close mobile menu whenever active section changes
+  useEffect(() => {
+    setOpen(false);
+  }, [activeId]);
+
+  // Close mobile menu on desktop viewport resize
+  useEffect(() => {
+    const handleResize = () => {
+      if (window.innerWidth > 780) {
+        setOpen(false);
+      }
+    };
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
+  const handleLinkClick = (event, href) => {
+    event.preventDefault();
+    setOpen(false);
+    const targetId = href.replace(/^#/, '');
+    if (onNavigate) {
+      onNavigate(targetId);
+    } else {
+      const el = document.getElementById(targetId);
+      if (el) el.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
 
   return (
     <header className="navbar">
       <div className="navbar__inner">
-        <a className="navbar__brand" href="#home" onClick={close} aria-label={`${profile.name}, back to top`}>
-          <span className="navbar__mark" aria-hidden="true">{profile.monogram}</span>
-          <span className="navbar__name">Rayyan Bhatti</span>
+        {/* Brand identity */}
+        <a
+          className="navbar__brand"
+          href="#home"
+          onClick={(e) => handleLinkClick(e, '#home')}
+          aria-label={`${profile.name}, scroll to top`}
+        >
+          <span className="navbar__mark" aria-hidden="true">
+            {profile.monogram}
+          </span>
+          <div className="navbar__titles">
+            <span className="navbar__name">{profile.name}</span>
+            <span className="navbar__role-label">CS &amp; Front-End</span>
+          </div>
         </a>
 
+        {/* Mobile menu hamburger toggle */}
         <button
           ref={toggleRef}
           type="button"
           className="navbar__toggle"
           aria-expanded={open}
           aria-controls="site-menu"
-          onClick={() => setOpen((value) => !value)}
+          aria-label={open ? 'Close main navigation menu' : 'Open main navigation menu'}
+          onClick={() => setOpen((prev) => !prev)}
         >
-          <span className="sr-only">{open ? 'Close menu' : 'Open menu'}</span>
           <span className="navbar__toggle-bars" aria-hidden="true" />
         </button>
 
-        <nav id="site-menu" className="navbar__menu" aria-label="Main navigation" data-open={open}>
+        {/* Navigation links & Quick Actions */}
+        <nav
+          id="site-menu"
+          className={`navbar__menu ${open ? 'is-open' : ''}`}
+          aria-label="Main navigation"
+        >
           <ul className="navbar__links">
             {navItems.map((item) => {
-              const isActive = item.href === `#${activeId}`;
+              const targetId = item.href.replace(/^#/, '');
+              const isActive = activeId === targetId;
+
               return (
                 <li key={item.href}>
                   <a
                     href={item.href}
-                    onClick={close}
-                    className={isActive ? 'is-active' : undefined}
-                    aria-current={isActive ? 'location' : undefined}
+                    onClick={(e) => handleLinkClick(e, item.href)}
+                    className={`navbar__link ${isActive ? 'is-active' : ''}`}
+                    aria-current={isActive ? 'page' : undefined}
                   >
-                    {item.label}
+                    <span>{item.label}</span>
+                    {isActive && <span className="navbar__link-indicator" aria-hidden="true" />}
                   </a>
                 </li>
               );
             })}
           </ul>
+
+          <div className="navbar__quick-actions">
+            <a
+              href={contact.whatsapp.url}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="navbar__quick-btn navbar__quick-btn--whatsapp"
+              aria-label="Chat on WhatsApp (opens in a new tab)"
+              title="Direct WhatsApp Chat"
+            >
+              <WhatsAppIcon size={16} />
+              <span>WhatsApp</span>
+            </a>
+
+            <a
+              href={contact.github.url}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="navbar__icon-btn"
+              aria-label="Muhammad Rayyan Bhatti's GitHub Profile (opens in a new tab)"
+            >
+              <GitHubIcon size={18} />
+            </a>
+
+            <a
+              href={contact.linkedin.url}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="navbar__icon-btn"
+              aria-label="Muhammad Rayyan Bhatti's LinkedIn Profile (opens in a new tab)"
+            >
+              <LinkedInIcon size={18} />
+            </a>
+          </div>
         </nav>
       </div>
     </header>

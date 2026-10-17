@@ -1,68 +1,200 @@
 import { useRef, useState } from 'react';
 import { profile } from '../data/portfolio.js';
-import DepthCard from './DepthCard.jsx';
-import useScrollParallax from '../hooks/useScrollParallax.js';
+import useSpatialTilt from '../hooks/useSpatialTilt.js';
 import useReducedMotion from '../hooks/useReducedMotion.js';
+import useScrollParallax from '../hooks/useScrollParallax.js';
+import {
+  ArrowRightIcon,
+  SparklesIcon,
+  SpatialCubeIcon,
+  WhatsAppIcon,
+  CheckCircleIcon,
+} from './Icons.jsx';
 
-// Hero: real text on the left, a layered CSS 3D stack on the right.
-// Back layer moves slowest on scroll, middle faster, front layer is tiltable.
-// The stage is decorative (aria-hidden); every control is a real button.
-export default function Hero() {
+export default function Hero({ onNavigate }) {
   const heroRef = useRef(null);
-  const reduced = useReducedMotion();
-  const [enhanced, setEnhanced] = useState(true);
-  const effectsOn = enhanced && !reduced;
+  const reducedMotion = useReducedMotion();
+  const [spatialEnabled, setSpatialEnabled] = useState(true);
 
-  useScrollParallax(heroRef);
+  const is3DActive = spatialEnabled && !reducedMotion;
+
+  const { containerRef, isEffectsActive } = useSpatialTilt({
+    enabled: is3DActive,
+    maxTilt: 16,
+    damping: 0.08,
+  });
+
+  useScrollParallax(heroRef, isEffectsActive);
+
+  const handleCtaClick = (e, targetId) => {
+    e.preventDefault();
+    if (onNavigate) {
+      onNavigate(targetId);
+    } else {
+      const el = document.getElementById(targetId);
+      if (el) el.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
 
   return (
-    <section id="home" className="hero section" ref={heroRef} aria-labelledby="hero-title">
+    <section id="home" className="hero section" ref={heroRef} aria-labelledby="hero-name">
+      {/* Dynamic ambient background glow */}
+      <div className="hero__ambient-glow" aria-hidden="true" />
+
       <div className="container hero__grid">
+        {/* Left Column: Typography, Credentials & Actions */}
         <div className="hero__copy">
-          <p className="section-kicker">Welcome</p>
-          <h1 id="hero-title" className="hero__name">{profile.name}</h1>
+          <div className="hero__status-badge">
+            <span className="hero__status-dot" aria-hidden="true" />
+            <span>Open to Front-End Roles & AI Collaborations</span>
+          </div>
+
+          <h1 id="hero-name" className="hero__name">
+            {profile.name}
+          </h1>
+
+          <p className="hero__role">
+            <span className="hero__role-highlight">Front-End Developer</span> &amp; Computer Science Student
+          </p>
+
           <p className="hero__tagline">{profile.tagline}</p>
+
           <p className="hero__intro">{profile.intro}</p>
 
           <div className="hero__actions">
-            <a className="button button--primary" href={profile.primaryCta.href}>
-              {profile.primaryCta.label}
+            <a
+              className="button button--primary"
+              href="#projects"
+              onClick={(e) => handleCtaClick(e, 'projects')}
+              aria-label="Explore Muhammad Rayyan Bhatti's featured projects"
+            >
+              <span>Explore My Work</span>
+              <ArrowRightIcon size={18} className="button__icon" />
             </a>
-            <a className="button button--ghost" href={profile.secondaryCta.href}>
-              {profile.secondaryCta.label}
+
+            <a
+              className="button button--ghost"
+              href="#contact"
+              onClick={(e) => handleCtaClick(e, 'contact')}
+              aria-label="Navigate to contact section to connect"
+            >
+              <span>Let&apos;s Connect</span>
+              <WhatsAppIcon size={18} className="button__icon" />
             </a>
           </div>
 
-          <div className="hero__options">
+          {/* Interactive Motion Preference & Spatial Controller */}
+          <div className="hero__motion-control">
             <button
               type="button"
-              className="motion-toggle"
-              aria-pressed={enhanced}
-              onClick={() => setEnhanced((value) => !value)}
+              className={`motion-switch ${is3DActive ? 'is-active' : 'is-inactive'}`}
+              role="switch"
+              aria-checked={is3DActive}
+              aria-label="Toggle 3D spatial interactive scene effects"
+              onClick={() => setSpatialEnabled((prev) => !prev)}
             >
-              3D effects: {effectsOn ? 'On' : 'Off'}
+              <span className="motion-switch__icon" aria-hidden="true">
+                <SpatialCubeIcon size={16} />
+              </span>
+              <span className="motion-switch__label">
+                Spatial 3D: <strong>{is3DActive ? 'Active' : 'Paused'}</strong>
+              </span>
+              <span className="motion-switch__indicator" aria-hidden="true" />
             </button>
-            {reduced && (
-              <p className="muted small">Your system asks for reduced motion, so 3D effects are off.</p>
+
+            {reducedMotion && (
+              <span className="motion-switch__note">
+                System requested reduced motion · 3D effects safely rested.
+              </span>
             )}
           </div>
         </div>
 
-        <div className="hero__stage" aria-hidden="true">
-          <DepthCard layer="back" speed={0.04} float={false} className="hero__layer-back">
-            <div className="hero__deco-lines" />
-          </DepthCard>
-          <DepthCard layer="mid" speed={0.1} className="hero__layer-mid">
-            <p className="hero__chip-title">Interests</p>
-            <ul className="tag-list">
-              {profile.interests.slice(0, 4).map((item) => (
-                <li key={item}>{item}</li>
-              ))}
-            </ul>
-          </DepthCard>
-          <DepthCard layer="front" speed={0.18} tilt={effectsOn} className="hero__layer-front">
-            <div className="monogram">{profile.monogram}</div>
-          </DepthCard>
+        {/* Right Column: Multi-Layered 3D Spatial Hologram Core */}
+        <div
+          className="hero__stage-wrapper"
+          tabIndex={0}
+          role="region"
+          aria-label="Interactive 3D spatial developer core. Use pointer, touch drag, or arrow keys to rotate."
+        >
+          <div
+            className={`hero__spatial-core ${is3DActive ? 'is-interactive' : ''}`}
+            ref={containerRef}
+          >
+            {/* Layer 1: Ambient Space Grid & Energy Rings (Deep Parallax) */}
+            <div className="spatial-layer spatial-layer--deep" data-speed="0.04" aria-hidden="true">
+              <div className="spatial-grid-matrix" />
+              <div className="spatial-energy-ring spatial-energy-ring--1" />
+              <div className="spatial-energy-ring spatial-energy-ring--2" />
+            </div>
+
+            {/* Layer 2: Geometric Hologram Card (Main Focal Plane) */}
+            <div className="spatial-layer spatial-layer--card" data-speed="0.09">
+              <div className="spatial-glass-card">
+                <div className="spatial-specular-light" aria-hidden="true" />
+                <div className="spatial-card-border-glow" aria-hidden="true" />
+
+                <div className="spatial-card-header">
+                  <span className="spatial-chip">
+                    <SparklesIcon size={12} />
+                    <span>ENGINEERING CORE</span>
+                  </span>
+                  <span className="spatial-status-pill">QAU · ISB</span>
+                </div>
+
+                <div className="spatial-card-body">
+                  <div className="spatial-monogram-wrap">
+                    <div className="spatial-monogram-glow" aria-hidden="true" />
+                    <span className="spatial-monogram-text">{profile.monogram}</span>
+                  </div>
+
+                  <h2 className="spatial-card-title">Muhammad Rayyan Bhatti</h2>
+                  <p className="spatial-card-subtitle">BS Computer Science (2023–Present)</p>
+
+                  <div className="spatial-tech-row" aria-hidden="true">
+                    <span className="tech-tag tech-tag--cyan">React 19</span>
+                    <span className="tech-tag tech-tag--mint">FastMCP</span>
+                    <span className="tech-tag tech-tag--indigo">Qdrant RAG</span>
+                    <span className="tech-tag tech-tag--violet">FastAPI</span>
+                  </div>
+                </div>
+
+                <div className="spatial-card-footer">
+                  <span className="spatial-telemetry">
+                    <CheckCircleIcon size={13} className="text-mint" />
+                    <span>Verified Project Artifacts &amp; MCP Architecture</span>
+                  </span>
+                </div>
+              </div>
+            </div>
+
+            {/* Layer 3: Satellite Orbit Floating Chips (High Parallax Floating) */}
+            <div className="spatial-layer spatial-layer--floating" data-speed="0.16" aria-hidden="true">
+              <div className="satellite-chip satellite-chip--top-left">
+                <span className="satellite-chip__icon">⚡</span>
+                <span className="satellite-chip__text">MCP Native Architect</span>
+              </div>
+
+              <div className="satellite-chip satellite-chip--top-right">
+                <span className="satellite-chip__icon">✨</span>
+                <span className="satellite-chip__text">React &amp; Modern UI</span>
+              </div>
+
+              <div className="satellite-chip satellite-chip--bottom-left">
+                <span className="satellite-chip__icon">🏛️</span>
+                <span className="satellite-chip__text">Quaid-i-Azam University</span>
+              </div>
+
+              <div className="satellite-chip satellite-chip--bottom-right">
+                <span className="satellite-chip__icon">🧠</span>
+                <span className="satellite-chip__text">Vector RAG &amp; Qdrant</span>
+              </div>
+            </div>
+          </div>
+
+          <p className="hero__stage-hint" aria-hidden="true">
+            {is3DActive ? 'Interactive 3D: Pointer & touch responsive' : '3D Spatial view (Paused)'}
+          </p>
         </div>
       </div>
     </section>

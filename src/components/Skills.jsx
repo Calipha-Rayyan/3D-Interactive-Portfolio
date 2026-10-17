@@ -1,23 +1,56 @@
 import { skillGroups } from '../data/portfolio.js';
+import { CodeIcon, LayersIcon, SparklesIcon } from './Icons.jsx';
 
-// Skills are grouped by category. No ratings or years of experience are shown.
 export default function Skills() {
   return (
-    <section id="skills" className="section">
+    <section id="skills" className="section skills-section" aria-labelledby="skills-title">
       <div className="container">
-        <p className="section-kicker reveal">Skills</p>
-        <h2 className="reveal">Technologies I work with</h2>
+        {/* Section Header */}
+        <div className="section-header reveal">
+          <p className="section-kicker">
+            <CodeIcon size={14} className="inline-icon" />
+            <span>Technical Capabilities</span>
+          </p>
+          <h2 id="skills-title" className="section-title">
+            Technologies &amp; Engineering Tooling
+          </h2>
+          <p className="section-intro muted">
+            Organized by functional engineering domain. All skills are verified through university coursework, fellowship capstone projects, and real applications. No arbitrary percentages or ratings.
+          </p>
+        </div>
 
+        {/* Skills Cards Grid */}
         <div className="skills__grid">
           {skillGroups.map((group) => (
-            <div className="glass skill-card reveal" key={group.category}>
-              <h3>{group.category}</h3>
-              <ul className="tag-list">
+            <div
+              key={group.category}
+              className={`glass skill-card skill-card--${group.accent || 'cyan'} reveal`}
+            >
+              <div className="skill-card__header">
+                <div className="skill-card__icon-wrap">
+                  <LayersIcon size={18} className="skill-card__icon" />
+                </div>
+                <div>
+                  <h3 className="skill-card__title">{group.category}</h3>
+                  <p className="skill-card__summary muted small">{group.summary}</p>
+                </div>
+              </div>
+
+              <ul className="skill-card__tags tag-list" aria-label={`Skills in ${group.category}`}>
                 {group.items.map((item) => (
-                  <li key={item}>{item}</li>
+                  <li key={item} className="skill-badge">
+                    <span className="skill-badge__bullet" aria-hidden="true" />
+                    <span>{item}</span>
+                  </li>
                 ))}
               </ul>
-              {group.note && <p className="muted small skill-card__note">{group.note}</p>}
+
+              {group.note && (
+                <div className="skill-card__note">
+                  <SparklesIcon size={13} className="text-violet inline-icon" />
+                  <span className="muted small">{group.note}</span>
+                </div>
+              )}
             </div>
           ))}
         </div>
