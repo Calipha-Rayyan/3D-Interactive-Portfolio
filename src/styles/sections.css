@@ -127,67 +127,6 @@
 }
 
 /* 3D Motion Preference Switch */
-.hero__motion-control {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-}
-
-.motion-switch {
-  display: inline-flex;
-  align-items: center;
-  gap: 10px;
-  min-height: 40px;
-  padding: 0 16px;
-  border-radius: var(--radius-full);
-  background: rgba(11, 48, 54, 0.45);
-  border: 1px solid var(--color-border);
-  color: var(--color-text-secondary);
-  font-family: inherit;
-  font-size: 0.85rem;
-  font-weight: 500;
-  cursor: pointer;
-  width: fit-content;
-  backdrop-filter: blur(8px);
-  transition: all 0.25s ease;
-}
-
-.motion-switch:hover {
-  border-color: var(--color-cyan);
-  color: var(--color-text);
-  background: rgba(14, 58, 65, 0.7);
-}
-
-.motion-switch.is-active {
-  border-color: rgba(94, 234, 212, 0.4);
-  color: var(--color-text);
-  box-shadow: 0 0 16px rgba(94, 234, 212, 0.12);
-}
-
-.motion-switch__icon {
-  display: grid;
-  place-items: center;
-  color: var(--color-cyan);
-}
-
-.motion-switch__indicator {
-  width: 10px;
-  height: 10px;
-  border-radius: 50%;
-  background: #475569;
-  transition: all 0.25s ease;
-}
-
-.motion-switch.is-active .motion-switch__indicator {
-  background: var(--color-mint);
-  box-shadow: 0 0 8px var(--color-mint);
-}
-
-.motion-switch__note {
-  font-size: 0.8rem;
-  color: var(--color-text-muted);
-}
-
 /* Hero Spatial 3D Stage */
 .hero__stage-wrapper {
   position: relative;
@@ -576,15 +515,26 @@
 
 .experience-item__header {
   display: flex;
+  flex-wrap: wrap;
   justify-content: space-between;
-  align-items: flex-start;
-  gap: 12px;
-  margin-bottom: 4px;
+  align-items: baseline;
+  gap: 8px 12px;
+  margin-bottom: 6px;
 }
 
 .experience-item__role {
   font-size: 1.02rem;
   color: var(--color-text);
+  min-width: 0;
+  flex: 1 1 200px;
+  overflow-wrap: break-word;
+  word-break: break-word;
+}
+
+.experience-item__header .badge {
+  flex-shrink: 0;
+  white-space: normal;
+  max-width: 100%;
 }
 
 .experience-item__org {
@@ -593,11 +543,13 @@
   color: var(--color-cyan);
   font-weight: 500;
   margin-bottom: 6px;
+  overflow-wrap: break-word;
 }
 
 .experience-item__desc {
   margin: 0;
   line-height: 1.55;
+  overflow-wrap: break-word;
 }
 
 /* Education Items */
@@ -605,18 +557,28 @@
   display: flex;
   flex-direction: column;
   gap: 6px;
+  min-width: 0;
 }
 
 .education-item__header {
   display: flex;
+  flex-wrap: wrap;
   justify-content: space-between;
-  align-items: center;
-  gap: 12px;
+  align-items: baseline;
+  gap: 8px 12px;
 }
 
 .education-item__degree {
   font-size: 1.15rem;
   color: var(--color-text);
+  min-width: 0;
+  flex: 1 1 180px;
+  overflow-wrap: break-word;
+  word-break: break-word;
+}
+
+.education-item__header .badge {
+  flex-shrink: 0;
 }
 
 .education-item__institution {
@@ -677,13 +639,17 @@
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   gap: 24px;
+  align-items: stretch;
 }
 
 .skill-card {
-  padding: clamp(24px, 3.5vw, 32px);
+  padding: clamp(22px, 3vw, 30px);
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  justify-content: flex-start;
+  gap: 1.25rem;
+  min-width: 0;
+  height: 100%;
 }
 
 .skill-card--cyan { border-left: 3px solid var(--color-cyan); }
@@ -695,7 +661,8 @@
   display: flex;
   align-items: flex-start;
   gap: 14px;
-  margin-bottom: 1.5rem;
+  margin-bottom: 0;
+  min-width: 0;
 }
 
 .skill-card__icon-wrap {
@@ -717,15 +684,18 @@
 .skill-card__title {
   font-size: 1.25rem;
   margin: 0 0 4px;
+  overflow-wrap: break-word;
 }
 
 .skill-card__summary {
   margin: 0;
   line-height: 1.5;
+  overflow-wrap: break-word;
 }
 
 .skill-card__tags {
-  margin-bottom: 1rem;
+  margin-bottom: 0;
+  min-width: 0;
 }
 
 .skill-badge {
@@ -759,10 +729,11 @@
 .skill-card--violet .skill-badge__bullet { background: var(--color-violet); }
 
 .skill-card__note {
+  margin-top: auto;
   display: flex;
   align-items: center;
   gap: 6px;
-  padding-top: 12px;
+  padding-top: 14px;
   border-top: 1px solid var(--color-border);
 }
 
@@ -1110,6 +1081,12 @@
   color: var(--color-text);
 }
 
+.contact-card__icon-circle--email {
+  background: rgba(103, 232, 249, 0.15);
+  border: 1px solid rgba(103, 232, 249, 0.35);
+  color: var(--color-cyan);
+}
+
 .contact-card__title {
   font-size: 1.35rem;
   margin: 0 0 4px;
@@ -1187,16 +1164,26 @@
   flex-direction: column;
   gap: 4px;
   flex: 1;
+  min-width: 0;
+  overflow-wrap: break-word;
+  word-break: break-word;
+}
+
+.contact-card__channel-body p {
+  overflow-wrap: break-word;
+  word-break: break-word;
 }
 
 .contact-card__channel-title {
   font-size: 1.1rem;
   margin: 0;
+  overflow-wrap: break-word;
 }
 
 .contact-card__channel-btn {
   margin-top: 8px;
   width: fit-content;
+  max-width: 100%;
 }
 
 .contact-card--status {
@@ -1366,6 +1353,12 @@
   .floating-whatsapp-btn {
     padding: 14px;
     border-radius: 50%;
+  }
+
+  .contact-card,
+  .contact-card--channel,
+  .contact-card--featured {
+    padding: 18px 16px;
   }
 }
 

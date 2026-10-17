@@ -11,7 +11,7 @@ export default function ProjectCard({ project }) {
           src={project.image}
           alt={project.imageAlt}
           className="project-card__img"
-          loading="lazy"
+          loading="eager"
           width="600"
           height="340"
         />

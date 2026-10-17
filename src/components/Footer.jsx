@@ -1,5 +1,5 @@
 import { contact, profile } from '../data/portfolio.js';
-import { GitHubIcon, LinkedInIcon, WhatsAppIcon, ArrowDownIcon } from './Icons.jsx';
+import { GitHubIcon, LinkedInIcon, WhatsAppIcon, MailIcon, ArrowDownIcon } from './Icons.jsx';
 
 export default function Footer({ onNavigate }) {
   const handleBackToTop = (e) => {
@@ -32,6 +32,15 @@ export default function Footer({ onNavigate }) {
 
         <nav className="footer__nav" aria-label="Footer Navigation">
           <div className="footer__links">
+            <a
+              href={contact.email.url}
+              className="footer__link"
+              aria-label="Send email to Muhammad Rayyan Bhatti"
+            >
+              <MailIcon size={16} />
+              <span>Email</span>
+            </a>
+
             <a
               href={contact.whatsapp.url}
               target="_blank"

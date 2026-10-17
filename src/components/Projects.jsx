@@ -4,10 +4,10 @@ import ProjectCard from './ProjectCard.jsx';
 import { SparklesIcon } from './Icons.jsx';
 
 const FILTER_CATEGORIES = [
-  { id: 'all', label: 'All Projects', count: projects.length },
-  { id: 'mcp', label: 'MCP & AI Agents', match: (p) => p.category.includes('MCP') },
+  { id: 'all', label: 'All Projects', match: () => true },
+  { id: 'mcp', label: 'MCP & AI Agents', match: (p) => p.category.includes('MCP') || p.category.includes('Agents') },
   { id: 'rag', label: 'RAG & Vector Search', match: (p) => p.category.includes('Vector') || p.category.includes('RAG') },
-  { id: 'ml', label: 'ML & Analytics', match: (p) => p.category.includes('Machine Learning') || p.category.includes('Analytics') || p.category.includes('Generative AI') },
+  { id: 'ml', label: 'ML & Analytics', match: (p) => p.category.includes('Machine Learning') || p.category.includes('Analytics') || p.category.includes('Predictive') || p.category.includes('OCR') || p.category.includes('Generative AI') },
 ];
 
 export default function Projects() {
@@ -23,7 +23,7 @@ export default function Projects() {
     <section id="projects" className="section projects-section" aria-labelledby="projects-title">
       <div className="container">
         {/* Section Header */}
-        <div className="section-header reveal">
+        <div className="section-header">
           <p className="section-kicker">
             <SparklesIcon size={14} className="inline-icon" />
             <span>Featured Engineering Work</span>
@@ -37,7 +37,7 @@ export default function Projects() {
         </div>
 
         {/* Filter Navigation */}
-        <div className="projects__filter-bar reveal" role="tablist" aria-label="Filter projects by technology category">
+        <div className="projects__filter-bar" role="tablist" aria-label="Filter projects by technology category">
           {FILTER_CATEGORIES.map((filter) => {
             const isSelected = activeFilter === filter.id;
             return (
@@ -58,7 +58,7 @@ export default function Projects() {
         {/* Project Grid */}
         <div className="projects__grid">
           {filteredProjects.map((project) => (
-            <div key={project.id} className="reveal">
+            <div key={project.id} className="project-grid__item">
               <ProjectCard project={project} />
             </div>
           ))}

@@ -14,9 +14,7 @@ import {
 export default function Hero({ onNavigate }) {
   const heroRef = useRef(null);
   const reducedMotion = useReducedMotion();
-  const [spatialEnabled, setSpatialEnabled] = useState(true);
-
-  const is3DActive = spatialEnabled && !reducedMotion;
+  const is3DActive = !reducedMotion;
 
   const { containerRef, isEffectsActive } = useSpatialTilt({
     enabled: is3DActive,
@@ -46,7 +44,7 @@ export default function Hero({ onNavigate }) {
         <div className="hero__copy">
           <div className="hero__status-badge">
             <span className="hero__status-dot" aria-hidden="true" />
-            <span>Open to Front-End Roles & AI Collaborations</span>
+            <span>Open to Front-End Roles &amp; AI Collaborations</span>
           </div>
 
           <h1 id="hero-name" className="hero__name">
@@ -81,32 +79,6 @@ export default function Hero({ onNavigate }) {
               <span>Let&apos;s Connect</span>
               <WhatsAppIcon size={18} className="button__icon" />
             </a>
-          </div>
-
-          {/* Interactive Motion Preference & Spatial Controller */}
-          <div className="hero__motion-control">
-            <button
-              type="button"
-              className={`motion-switch ${is3DActive ? 'is-active' : 'is-inactive'}`}
-              role="switch"
-              aria-checked={is3DActive}
-              aria-label="Toggle 3D spatial interactive scene effects"
-              onClick={() => setSpatialEnabled((prev) => !prev)}
-            >
-              <span className="motion-switch__icon" aria-hidden="true">
-                <SpatialCubeIcon size={16} />
-              </span>
-              <span className="motion-switch__label">
-                Spatial 3D: <strong>{is3DActive ? 'Active' : 'Paused'}</strong>
-              </span>
-              <span className="motion-switch__indicator" aria-hidden="true" />
-            </button>
-
-            {reducedMotion && (
-              <span className="motion-switch__note">
-                System requested reduced motion · 3D effects safely rested.
-              </span>
-            )}
           </div>
         </div>
 
@@ -149,7 +121,7 @@ export default function Hero({ onNavigate }) {
                   </div>
 
                   <h2 className="spatial-card-title">Muhammad Rayyan Bhatti</h2>
-                  <p className="spatial-card-subtitle">BS Computer Science (2023–Present)</p>
+                  <p className="spatial-card-subtitle">BS Computer Science (2023 to Present)</p>
 
                   <div className="spatial-tech-row" aria-hidden="true">
                     <span className="tech-tag tech-tag--cyan">React 19</span>
@@ -191,10 +163,6 @@ export default function Hero({ onNavigate }) {
               </div>
             </div>
           </div>
-
-          <p className="hero__stage-hint" aria-hidden="true">
-            {is3DActive ? 'Interactive 3D: Pointer & touch responsive' : '3D Spatial view (Paused)'}
-          </p>
         </div>
       </div>
     </section>

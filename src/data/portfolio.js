@@ -1,6 +1,6 @@
 // ============================================================
 // ALL personal content lives here. Components only read from it.
-// Verified records for Muhammad Rayyan Bhatti (Calipha-Rayyan-9)
+// Verified records for Muhammad Rayyan Bhatti (Calipha-Rayyan)
 // ============================================================
 
 export const profile = {
@@ -9,7 +9,7 @@ export const profile = {
   role: 'Front-End Developer & CS Student',
   tagline: 'BS Computer Science Student | Aspiring Front-End Developer | AI & Web Enthusiast',
   intro:
-    'I am a BS Computer Science student at Quaid-i-Azam University, Islamabad (2023–present), passionate about engineering responsive, accessible web applications and exploring artificial intelligence. I learn by building practical software—from interactive front-ends to MCP-native agent platforms and RAG pipelines.',
+    'I am a BS Computer Science student at Quaid-i-Azam University, Islamabad (2023 to Present), passionate about engineering responsive, accessible web applications and exploring artificial intelligence. I learn by building practical software, ranging from interactive front-ends to MCP-native agent platforms and RAG pipelines.',
   location: 'Islamabad, Pakistan',
   status: 'Open to internships & frontend collaborations',
   interests: [
@@ -47,7 +47,7 @@ export const education = [
   {
     degree: 'BS Computer Science',
     institution: 'Quaid-i-Azam University, Islamabad',
-    period: '2023 – Present',
+    period: '2023 to Present',
     status: 'Currently Pursuing (Undergraduate)',
     focus: 'Data Structures, Algorithms, Software Engineering, OOP, Web Technologies & Database Systems',
   },
@@ -55,18 +55,18 @@ export const education = [
 
 export const experienceHighlights = [
   {
-    role: 'Capstone Team Lead — Zeppelin Labs AI Fellowship',
+    role: 'Capstone Team Lead, Zeppelin Labs AI Fellowship',
     organization: 'Zeppelin Labs',
     badge: 'AI & Generative AI Fellowship',
     description:
       'Led the architecture and delivery of Quill, an MCP-native blogging platform connecting AI agents (Claude.ai) to a secure CMS backend, and built an end-to-end RAG-based AI Study Companion using Qdrant vector retrieval.',
   },
   {
-    role: 'Team Leader — Generative AI Training & Hackathon',
+    role: 'Team Leader, Generative AI Training & Hackathon',
     organization: 'Pak Angels',
     badge: 'Hackathon Leadership',
     description:
-      'Coordinated the team to conceptualize, develop, test, and deploy NourishAI Pakistan—a personalized, budget-aware 7-day AI nutrition and meal planning platform.',
+      'Coordinated the team to conceptualize, develop, test, and deploy NourishAI Pakistan, a personalized and budget-aware 7-day AI nutrition and meal planning platform.',
   },
 ];
 
@@ -90,8 +90,9 @@ export const skillGroups = [
   {
     category: 'Programming Languages',
     accent: 'mint',
-    summary: 'Languages used across university coursework, algorithmic problem solving, and projects.',
-    items: ['Python', 'C++', 'SQL', 'JavaScript', 'Dart'],
+    summary: 'Core languages applied across university coursework, algorithmic development, and full-stack engineering.',
+    items: ['Python', 'JavaScript (ES6+)', 'TypeScript', 'C++', 'C', 'SQL', 'Dart'],
+    note: 'Applied in algorithmic problem solving, academic labs, and software platforms.',
   },
   {
     category: 'Backend, Databases & AI Tooling',
@@ -184,7 +185,7 @@ export const projects = [
     demoUrl: 'https://nourishai-studio.streamlit.app/',
     highlights: [
       'Verified live interactive Streamlit web application',
-      'PKR budget-aware and Pakistani cuisine-specific nutritional logic',
+      'PKR budget aware and Pakistani cuisine specific nutritional logic',
       'Plan saving, download options, and flexible 1-day to 1-month planning',
     ],
     accent: 'mint',
@@ -205,32 +206,53 @@ export const projects = [
     demoUrl: null,
     highlights: [
       'Document chunking, Sentence Transformers embeddings, and Qdrant Cloud storage',
-      'Retrieval-Augmented Generation (RAG) producing grounded study schedules',
+      'Retrieval Augmented Generation (RAG) producing grounded study schedules',
       'Interactive web interface for document uploads and plan visualization',
     ],
     accent: 'indigo',
     sourceNote: 'Verified via public LinkedIn post & Zeppelin Labs fellowship repository.',
   },
   {
-    id: 'flight-delay-predictor',
-    title: 'Airline Flight Delay Predictor',
-    shortTitle: 'Flight Delay Predictor',
-    category: 'Machine Learning & Data Science',
-    previewType: 'screenshot',
-    image: '/images/projects/flight-delay-predictor.jpg',
-    imageAlt: 'Airline Flight Delay Predictor interactive Streamlit web application with modern dark theme',
+    id: 'certificate-ocr',
+    title: 'Certificate OCR System',
+    shortTitle: 'Certificate OCR',
+    category: 'Computer Vision & OCR Pipeline',
+    previewType: 'designed-preview',
+    image: '/images/projects/certificate-ocr.svg',
+    imageAlt: 'Certificate OCR System processing document image with bounding boxes and extracted structured fields',
     description:
-      'An end-to-end machine learning project predicting airline departure delays (15+ min) using pre-flight data. Features extensive data cleaning, feature engineering, model benchmarking (Logistic Regression, Random Forest, HistGradientBoosting), and an interactive dark-themed Streamlit application with delay probability estimates.',
-    technologies: ['Python', 'Streamlit', 'Scikit-learn', 'Pandas', 'Plotly', 'ML'],
-    repoUrl: 'https://github.com/Calipha-Rayyan/Airline-Flight-Delay-Analysis',
+      'A document processing application that extracts structured credential information from certificate images and PDF files using Tesseract OCR and OpenCV preprocessing pipelines. Features deskew correction, OTSU binarization, SQLite storage, and multi-format exports (JSON, TXT, Excel).',
+    technologies: ['Python', 'Flask', 'Tesseract OCR', 'OpenCV', 'SQLite', 'Computer Vision'],
+    repoUrl: 'https://github.com/Calipha-Rayyan/Certificate-OCR-System',
     demoUrl: null,
     highlights: [
-      'Trained on 2015 US DOT flight records with rigorous pre-flight feature engineering',
-      'Model comparison and hyperparameter tuning across ensemble classifiers',
-      'Interactive UI providing flight delay risk estimates and flight summaries',
+      'Image and multi-page PDF processing with automated deskew & noise reduction',
+      'High-confidence text extraction for recipient, institution, and credential fields',
+      'Clean export architecture with SQLite persistence and drag-and-drop dark mode UI',
+    ],
+    accent: 'cyan',
+    sourceNote: 'Verified via public GitHub repository (Calipha-Rayyan/Certificate-OCR-System).',
+  },
+  {
+    id: 'customer-lifetime-value',
+    title: 'Customer Lifetime Value Model',
+    shortTitle: 'CLV Prediction Model',
+    category: 'Machine Learning & Predictive Analytics',
+    previewType: 'designed-preview',
+    image: '/images/projects/customer-lifetime-value.svg',
+    imageAlt: 'Customer Lifetime Value Model analytics dashboard displaying holdout validation curve and RFM segmentation',
+    description:
+      'An end-to-end customer value prediction and segmentation engine built using BG/NBD frequency models and Gamma-Gamma monetary models. Cleans transaction records, engineers behavioral RFM features, validates predictions against a time-based holdout, and classifies customers into actionable value tiers.',
+    technologies: ['Python', 'Pandas', 'Machine Learning', 'Predictive Analytics', 'Data Science', 'Pytest'],
+    repoUrl: 'https://github.com/Calipha-Rayyan/Customer-Lifetime-Value-Model',
+    demoUrl: null,
+    highlights: [
+      'BG/NBD transaction rate modeling coupled with Gamma-Gamma monetary prediction',
+      'Time-based holdout validation with 18 automated unit tests in Pytest',
+      'Automated high, medium, and low value customer behavioral segmentation',
     ],
     accent: 'violet',
-    sourceNote: 'Verified via public LinkedIn post & GitHub repository.',
+    sourceNote: 'Verified via public GitHub repository (Calipha-Rayyan/Customer-Lifetime-Value-Model).',
   },
   {
     id: 'foresight-nexus',
@@ -251,7 +273,7 @@ export const projects = [
       'Modular command center architecture with DuckDB & SQLite persistence',
     ],
     accent: 'cyan',
-    sourceNote: 'Verified via public GitHub repository (Calipha-Rayyan/Foresight-Nexus). Visual asset is a designed UI preview based on repo architecture and SVG branding.',
+    sourceNote: 'Verified via public GitHub repository (Calipha-Rayyan/Foresight-Nexus).',
   },
 ];
 
@@ -273,6 +295,10 @@ export const contact = {
     label: 'GitHub Profile',
     username: 'Calipha-Rayyan',
     url: 'https://github.com/Calipha-Rayyan',
+  },
+  email: {
+    address: 'muhammad313rayyan9@gmail.com',
+    url: 'mailto:muhammad313rayyan9@gmail.com',
   },
   location: 'Islamabad, Pakistan',
   availability: 'Available for front-end roles, internships, and project collaborations',

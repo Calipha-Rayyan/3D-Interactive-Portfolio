@@ -1,6 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
-import { navItems, profile, contact } from '../data/portfolio.js';
-import { WhatsAppIcon, GitHubIcon, LinkedInIcon } from './Icons.jsx';
+import { navItems, profile } from '../data/portfolio.js';
 
 export default function Navbar({ activeId, onNavigate }) {
   const [open, setOpen] = useState(false);
@@ -118,40 +117,6 @@ export default function Navbar({ activeId, onNavigate }) {
               );
             })}
           </ul>
-
-          <div className="navbar__quick-actions">
-            <a
-              href={contact.whatsapp.url}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="navbar__quick-btn navbar__quick-btn--whatsapp"
-              aria-label="Chat on WhatsApp (opens in a new tab)"
-              title="Direct WhatsApp Chat"
-            >
-              <WhatsAppIcon size={16} />
-              <span>WhatsApp</span>
-            </a>
-
-            <a
-              href={contact.github.url}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="navbar__icon-btn"
-              aria-label="Muhammad Rayyan Bhatti's GitHub Profile (opens in a new tab)"
-            >
-              <GitHubIcon size={18} />
-            </a>
-
-            <a
-              href={contact.linkedin.url}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="navbar__icon-btn"
-              aria-label="Muhammad Rayyan Bhatti's LinkedIn Profile (opens in a new tab)"
-            >
-              <LinkedInIcon size={18} />
-            </a>
-          </div>
         </nav>
       </div>
     </header>

@@ -1,84 +1,155 @@
-# 3D Interactive Portfolio — Muhammad Rayyan Bhatti
+# 3D Interactive Portfolio | Muhammad Rayyan Bhatti
 
-Personal 3D interactive portfolio of **Muhammad Rayyan Bhatti**, BS Computer Science student at Quaid-i-Azam University, Islamabad (2023–present), aspiring front-end developer, and AI enthusiast (`Calipha-Rayyan-9`).
+A high-performance, accessible, and responsive personal developer portfolio engineered with **React 19**, **Vite 6**, and **modern CSS**. Features a physics-damped 3D spatial hero experience, seamless anchor navigation, balanced skills layout, source-verified real-world projects, direct communication channels, and comprehensive accessibility compliance.
 
-Live Reference Inspiration: [Muhammad Talha's Portfolio](https://www.the-muhammad-talha.com/)
+Developed by **Muhammad Rayyan Bhatti**, BS Computer Science undergraduate at Quaid-i-Azam University, Islamabad (2023 to Present).
 
 ---
 
-## Key Upgrades & Architectural Highlights
+## Live Links & Contact
 
-### 1. Convincing 3D Spatial Hero Scene
-- **Physics-Damped Pointer Tilt**: Uses damped spring interpolation (`requestAnimationFrame` with linear interpolation factor `0.08`) so the 3D core moves with realistic tactile weight rather than rigid linear snapping.
-- **Dynamic Specular Light Reflection**: Tracks pointer/touch coordinates across the surface of the central frosted glass prism to produce a living specular spotlight (`radial-gradient` reflection).
-- **Multi-Layer Depth Separation**:
-  - **Back layer (-80px Z)**: Ambient space grid and dual rotating orbital rings.
-  - **Main card (+25px Z)**: Frosted glass prism with beveled border glow, sculpted `MRB` monogram emblem, and tech badges.
-  - **Satellite orbital chips (+75px Z)**: Detached floating badges (`⚡ MCP Native Architect`, `✨ React & Modern UI`, `🏛️ Quaid-i-Azam University`, `🧠 Vector RAG & Qdrant`) with independent parallax lag.
-- **Accessible Motion Switch**: Replaced the former decorative badge with an accessible, interactive Glassmorphism Motion Switch (`role="switch"`, `aria-checked`) supporting mouse, touch drag, keyboard arrow keys, and full compliance with `prefers-reduced-motion`.
+- **GitHub Profile**: [github.com/Calipha-Rayyan](https://github.com/Calipha-Rayyan)
+- **LinkedIn Profile**: [linkedin.com/in/calipha-rayyan](https://www.linkedin.com/in/calipha-rayyan)
+- **Direct Email**: [muhammad313rayyan9@gmail.com](mailto:muhammad313rayyan9@gmail.com)
+- **WhatsApp Direct**: [+92 312 0551052](https://wa.me/923120551052)
+- **Live Demo (NourishAI Pakistan)**: [nourishai-studio.streamlit.app](https://nourishai-studio.streamlit.app/)
 
-### 2. Bulletproof Anchor Navigation & Scroll-Spy Synchronization
-- **Strict Sticky Header Offset**: Exact 72px offset calculation on smooth scrolling so every section heading and initial content lands cleanly in view without excessive top blank space.
-- **Scroll-Lock Synchronization**: When any nav link or hero CTA (`Explore My Work` → `#projects`, `Let's Connect` → `#contact`) is clicked, intermediate sections are prevented from hijacking the active navigation indicator during smooth scroll.
-- **Bottom-of-Page Protection**: Guarantees that reaching the bottom of the page always keeps `#contact` active without flickering back to `#projects`.
-- **URL Hash Synchronization**: URL hash updates cleanly with `history.pushState` / `history.replaceState` while keeping browser Back/Forward functional.
-- **Mobile Menu Auto-Close**: Mobile dropdown automatically closes on link selection, page scroll, outside click, or window resize.
+---
 
-### 3. Source-Backed Project Gallery & Real Media
-Replaced all letter-only placeholders (`Q`, `K`, `F`, `N`) with real project previews extracted from public LinkedIn project posts and verified GitHub repositories:
+## Core Architecture & Engineering Highlights
 
-| Project | Category | Media File | Origin / Type | Live Status |
+### 1. Physics-Damped 3D Spatial Hero Scene
+- **Spring-Interpolated Motion**: Implemented in `src/hooks/useSpatialTilt.js` using `requestAnimationFrame` with a linear interpolation factor (`0.08`) and velocity damping (`0.92`), producing fluid, realistic tactile weight rather than linear snapping.
+- **Dynamic Specular Spotlight**: Real-time coordinates tracking maps a living specular spotlight (`radial-gradient`) across the central frosted glass prism as the pointer moves.
+- **Multi-Layer Depth Composition**:
+  - **Back Plane (-80px Z)**: Ambient space grid and dual rotating orbital rings.
+  - **Prism Core (+25px Z)**: Frosted glass prism with beveled border glow, sculpted monogram emblem, and tech badges.
+  - **Orbital Satellite Chips (+75px Z)**: Detached floating badges with independent parallax lag.
+- **Zero Decorative Status Badges**: Removed artificial toggles; realistic 3D depth runs out of the box on capable hardware while strictly respecting `prefers-reduced-motion` for accessibility.
+
+### 2. Streamlined Navigation & Bulletproof Scroll-Spy
+- **Focused Header**: Clean single-row layout displaying only essential section anchors (`Home`, `About`, `Skills`, `Projects`, `Contact`) with zero text wrapping or button clipping at any viewport width.
+- **Exact Offset Scrolling**: Strict 72px sticky header offset calculation ensures section headings and intro content land cleanly in view without excessive empty vertical gaps.
+- **Scroll-Lock Synchronization**: Smooth scroll transitions lock active indicator updates to prevent intermediate sections from hijacking the active navigation link.
+- **Bottom-of-Page Protection**: Ensures reaching the bottom of the viewport always locks `#contact` active without flickering back to previous sections.
+- **Mobile Menu Auto-Close**: Mobile navigation drawer automatically closes upon link selection, scrolling, window resize, or outside click.
+
+### 3. Balanced, Content-Driven Skills Grid
+- **Structured Grid Alignment**: 4 distinct engineering domains presented in a 2x2 responsive CSS grid (`align-items: stretch`, `height: 100%`) eliminating hollow whitespace and awkward card heights.
+- **Honest Competencies**: Skill tags categorized by domain (Front-End Development, Programming Languages, Backend & AI Tooling, Applied Technical Interests) with engineering notes, avoiding arbitrary percentage bars or fake proficiency meters.
+
+### 4. Verified Projects & Real Media Previews
+Every project represents authentic, reproducible engineering work backed by public GitHub repositories and public LinkedIn documentation:
+
+| Project | Category | Tech Stack | Media / Type | Links |
 |---|---|---|---|---|
-| **Quill: MCP Blog Platform** | AI & Full-Stack / MCP | `quill-mcp-blog.jpg` | [LinkedIn Post](https://www.linkedin.com/posts/calipha-rayyan_mcp-modelcontextprotocol-ai-activity-7503065086660501504-c5Z_) / Screenshot | [GitHub](https://github.com/Calipha-Rayyan/Quill-MCP-Blog-Platform) |
-| **Personal Knowledge Base (MCP)** | AI & Full-Stack / Vector Search | `personal-knowledge-base-mcp.jpg` | [LinkedIn Post](https://www.linkedin.com/posts/calipha-rayyan_ai-mcp-fastapi-activity-7501192588293533698-Xo8B) / Screenshot | [GitHub](https://github.com/Calipha-Rayyan/Personal-Knowledge-Base-MCP) |
-| **NourishAI Pakistan** | Generative AI / Nutrition Tech | `nourish-ai-pakistan.jpg` | [LinkedIn Post](https://www.linkedin.com/posts/calipha-rayyan_nourishai-generativeai-ai-activity-7505110705361137664-QxdU) / Screenshot | [Live Demo](https://nourishai-studio.streamlit.app/) · [GitHub](https://github.com/Calipha-Rayyan/NourishAI-Pakistan) |
-| **AI Study Companion** | EdTech / RAG Architecture | `ai-study-companion.jpg` | [LinkedIn Post](https://www.linkedin.com/posts/calipha-rayyan_zeppelinlabs-zeppelinfellowship-aifellowship-activity-7492232520034582528-qffj) / Screenshot | [GitHub](https://github.com/Calipha-Rayyan/AI-Study-Companion) |
-| **Airline Flight Delay Predictor** | Machine Learning & Data Science | `flight-delay-predictor.jpg` | [LinkedIn Post](https://www.linkedin.com/posts/calipha-rayyan_machinelearning-datascience-python-activity-7507455182298042368-T25-) / Screenshot | [GitHub](https://github.com/Calipha-Rayyan/Airline-Flight-Delay-Analysis) |
-| **FORESIGHT Nexus** | Predictive Analytics & Inventory | `foresight-nexus.svg` | [GitHub Repository](https://github.com/Calipha-Rayyan/Foresight-Nexus) / Designed UI Preview | [GitHub](https://github.com/Calipha-Rayyan/Foresight-Nexus) |
+| **Quill: MCP-Native Blog** | AI & Full-Stack / MCP | React, Node.js, FastMCP, SQLite, Docker | Real Screenshot (Cropped) | [GitHub](https://github.com/Calipha-Rayyan/Quill-MCP-Blog-Platform) |
+| **Personal Knowledge Base** | AI & Full-Stack / Vector Search | React, FastAPI, Qdrant Vector DB, FastMCP | Real Screenshot (Cropped) | [GitHub](https://github.com/Calipha-Rayyan/Personal-Knowledge-Base-MCP) |
+| **NourishAI Pakistan** | Generative AI / Nutrition Tech | Python, Streamlit, Groq API, Llama 3 | Real Screenshot (Cropped) | [Live Demo](https://nourishai-studio.streamlit.app/) · [GitHub](https://github.com/Calipha-Rayyan/NourishAI-Pakistan) |
+| **AI Study Companion** | EdTech / RAG Architecture | Python, FastAPI, Sentence Transformers, Qdrant | Real Screenshot (Cropped) | [GitHub](https://github.com/Calipha-Rayyan/AI-Study-Companion) |
+| **Certificate OCR System** | Computer Vision & OCR Pipeline | Python, Flask, Tesseract OCR, OpenCV, SQLite | Tailored SVG Preview | [GitHub](https://github.com/Calipha-Rayyan/Certificate-OCR-System) |
+| **Customer Lifetime Value** | Machine Learning & Analytics | Python, Pandas, BG/NBD, Gamma-Gamma, Pytest | Tailored SVG Preview | [GitHub](https://github.com/Calipha-Rayyan/Customer-Lifetime-Value-Model) |
+| **FORESIGHT Nexus** | Predictive Analytics & Inventory | Python, Streamlit, DuckDB, scikit-learn, ARIMA | Tailored SVG Preview | [GitHub](https://github.com/Calipha-Rayyan/Foresight-Nexus) |
 
-- **Interactive Category Filtering**: Explore projects by domain (`All Projects`, `MCP & AI Agents`, `RAG & Vector Search`, `ML & Analytics`).
-- **Asset Manifest**: Documented in `public/images/projects/MANIFEST.md`.
+- **Clean Browser Media**: All real screenshots were cropped to eliminate operating system tabs and address bars, presenting clean, professional application interfaces.
+- **Interactive Filtering**: Real-time category filtering (`All Projects`, `MCP & AI Agents`, `RAG & Vector Search`, `ML & Analytics`).
 
-### 4. Direct WhatsApp Integration & Contact Channel
-- **WhatsApp Direct Link**: Verified international click-to-chat URL:
-  `https://wa.me/923120551052?text=Assalam-o-Alaikum%20Rayyan%2C%20I%20visited%20your%20portfolio%20and%20would%20like%20to%20connect.`
-- **Display Phone**: `03120551052` (`+92 312 0551052`).
-- **Featured Contact Card**: Includes pre-composed message preview, direct WhatsApp chat action, and live response time indicator.
-- **Floating Quick-Action Button**: Non-intrusive floating WhatsApp action with glowing pulse indicator in the bottom-right corner.
-
-### 5. Coherent Dark-Tech Visual Identity
-- **Refined Color Palette**:
-  - Deep Background: `#06181F`
-  - Deep Teal: `#0B3036`
-  - Mint Accent: `#5EEAD4`
-  - Cyan Accent: `#67E8F9`
-  - Indigo Accent: `#818CF8`
-  - Violet Accent: `#A78BFA`
-  - Main Text: `#F0FAF8`
-  - Secondary Text: `#B8D0D0`
-- **Design Tokens**: Standardized CSS custom properties in `src/styles/global.css`.
+### 5. Multi-Channel Contact & Floating Quick Action
+- **Direct Email Card**: One-click communication via `muhammad313rayyan9@gmail.com`.
+- **Verified WhatsApp Chat**: International click-to-chat integration with pre-filled greeting message.
+- **Smart Floating WhatsApp**: Scroll-activated quick-action button appearing once users scroll past the hero fold (350px), featuring a non-intrusive frosted glass design and online indicator.
+- **Verified Profiles**: Direct links to official GitHub and LinkedIn profiles in both Contact cards and Footer.
 
 ---
 
-## Tech Stack
+## Tech Stack & Design System
 
 - **Framework**: React 19, Vite 6
-- **Language**: JavaScript (ES6+), Modern CSS3
-- **Icons**: Custom accessible SVG components
-- **Testing**: Puppeteer-core with Google Chrome headless automation
+- **Styling**: Modern CSS3 (CSS custom properties, glassmorphism, flexbox, CSS grid)
+- **Color Palette**:
+  - Deep Space Canvas: `#06181F`
+  - Deep Teal Glass: `#0B3036`
+  - Mint Glow: `#5EEAD4`
+  - Electric Cyan: `#67E8F9`
+  - Soft Indigo: `#818CF8`
+  - Accent Violet: `#A78BFA`
+  - Crisp Primary Text: `#F0FAF8`
+  - Readable Muted Text: `#B8D0D0`
+- **Typography**: Inter (UI prose) & Space Grotesk (headings and monospace telemetry)
+- **Icons**: Custom, lightweight SVG icon suite (`src/components/Icons.jsx`)
+- **Testing**: Automated Puppeteer-core test suite with headless Chrome
 
 ---
 
-## Local Development & Build
+## Project Structure
 
-```powershell
+```text
+3d-interactive-portfolio/
+├── index.html                    # HTML entry point with meta tags & Google Fonts
+├── package.json                  # Dependencies & npm scripts
+├── vite.config.js                # Vite build and server configuration
+├── public/
+│   ├── favicon.svg               # Vector brand favicon
+│   └── images/
+│       └── projects/             # Real project screenshots & SVG diagrams
+├── src/
+│   ├── main.jsx                  # React application root
+│   ├── App.jsx                   # Main layout container
+│   ├── data/
+│   │   └── portfolio.js          # Central single source of truth for portfolio data
+│   ├── hooks/
+│   │   ├── useNavigation.js      # Scroll-spy & offset navigation hook
+│   │   ├── usePointerTilt.js     # Light reflection tilt hook
+│   │   └── useSpatialTilt.js     # Damped 3D physics engine hook
+│   ├── components/
+│   │   ├── Navbar.jsx            # Responsive navigation bar & mobile drawer
+│   │   ├── Hero.jsx              # 3D spatial interactive hero section
+│   │   ├── About.jsx             # Education, experience & engineering philosophy
+│   │   ├── Skills.jsx            # 4-quadrant balanced skills matrix
+│   │   ├── Projects.jsx          # Filterable project showcase
+│   │   ├── ProjectCard.jsx       # Individual project card with live links
+│   │   ├── Contact.jsx           # WhatsApp, Email, LinkedIn & GitHub channels
+│   │   ├── FloatingWhatsApp.jsx  # Scroll-activated quick chat trigger
+│   │   ├── Footer.jsx            # Monogram footer with quick anchors
+│   │   └── Icons.jsx             # Accessible SVG icon collection
+│   └── styles/
+│       ├── global.css            # Design tokens, reset, typography & utility classes
+│       ├── navigation.css        # Navbar and mobile menu styles
+│       ├── hero-spatial.css      # 3D transforms, lighting & orbital animations
+│       └── sections.css          # About, Skills, Projects, and Contact styling
+└── scripts/
+    ├── browser_qa.cjs            # Automated multi-viewport QA verification script
+    └── crop_and_prepare_images.cjs # Image processing script
+```
+
+---
+
+## Local Development & Setup
+
+### Prerequisites
+- Node.js (v18.0.0 or higher recommended)
+- npm or yarn
+
+### Installation
+
+```bash
+# Clone the repository
+git clone https://github.com/Calipha-Rayyan/3D-Interactive-Portfolio.git
+
+# Navigate into project directory
+cd 3D-Interactive-Portfolio
+
 # Install dependencies
 npm install
 
 # Start local development server
 npm run dev
+```
 
-# Production build
+### Production Build
+
+```bash
+# Compile optimized production bundle
 npm run build
 
 # Preview production build locally
@@ -87,21 +158,19 @@ npm run preview
 
 ---
 
-## Verification & QA Results
+## Automated QA & Browser Verification
 
-Tested across headless Google Chrome with automated scripts:
+The project includes an automated multi-viewport testing suite run against real headless Google Chrome instances:
 
-- **1440px Desktop**: Passed (Hero 3D tilt, navigation clicks, smooth landing, fullpage capture).
-- **1024px Tablet Landscape**: Passed (Grid reflows cleanly, no overflow).
-- **768px Tablet Portrait**: Passed (Mobile hamburger toggle opens, menu backdrop blur, links close menu).
-- **375px Mobile Viewport**: Passed (Single-column layout, compact 3D core, card scaling).
-- **360px Small Mobile Viewport**: Passed (No horizontal scroll, buttons span full width).
-- **Console Errors**: 0 errors.
+- **1440px Desktop**: Verified 3D physics tilt, smooth anchor scrolling, zero layout shifts, fullpage capture.
+- **1024px Tablet Landscape**: Verified responsive reflow without horizontal scrolling.
+- **768px Tablet Portrait**: Verified mobile hamburger toggle, backdrop blur, and menu link auto-close.
+- **375px Mobile**: Verified single-column stacked layout, scaled 3D core, and legible touch targets.
+- **360px Compact Mobile**: Verified zero horizontal clipping, responsive button widths, and edge padding.
+- **Console Errors**: 0 errors, 0 unhandled promise rejections.
 
 ---
 
-## Remaining Notes & Limitations
+## License
 
-1. **Live Demos**: NourishAI Pakistan is verified and linked to its live Streamlit deployment (`https://nourishai-studio.streamlit.app/`). Quill, Personal Knowledge Base, AI Study Companion, Airline Flight Delay Predictor, and FORESIGHT Nexus link directly to their verified GitHub repositories; demo buttons honestly reflect pending live deployment.
-2. **Contact Form**: An email or server contact form is omitted because the site has no backend service; all inquiries are directed through WhatsApp, LinkedIn, or GitHub.
-3. **No Unapproved Git Operations**: No remote branches or destructive git operations were performed.
+This project is licensed under the [MIT License](LICENSE).

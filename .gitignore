@@ -17,7 +17,10 @@ pnpm-debug.log*
 .DS_Store
 Thumbs.db
 
-# Environment files (never commit secrets)
-.env
-.env.*
-!.env.example
+# Media / recordings
+*.mp4
+*.mkv
+*.mov
+
+# Utility & QA scripts
+scripts/

@@ -3,6 +3,7 @@ import {
   WhatsAppIcon,
   LinkedInIcon,
   GitHubIcon,
+  MailIcon,
   ExternalLinkIcon,
   SparklesIcon,
 } from './Icons.jsx';
@@ -74,6 +75,25 @@ export default function Contact() {
 
           {/* Secondary Professional Channels */}
           <div className="contact__secondary-column">
+            {/* Direct Email Card */}
+            <div className="glass contact-card contact-card--channel reveal">
+              <div className="contact-card__icon-circle contact-card__icon-circle--email">
+                <MailIcon size={22} />
+              </div>
+              <div className="contact-card__channel-body">
+                <h3 className="contact-card__channel-title">Direct Email</h3>
+                <p className="muted small font-mono">{contact.email.address}</p>
+                <a
+                  className="button button--ghost button--small contact-card__channel-btn"
+                  href={contact.email.url}
+                  aria-label="Send an email to Muhammad Rayyan Bhatti"
+                >
+                  <span>Send an Email</span>
+                  <ExternalLinkIcon size={14} />
+                </a>
+              </div>
+            </div>
+
             {/* LinkedIn Card */}
             <div className="glass contact-card contact-card--channel reveal">
               <div className="contact-card__icon-circle contact-card__icon-circle--linkedin">

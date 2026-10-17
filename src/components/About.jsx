@@ -20,7 +20,7 @@ export default function About() {
             Engineering Philosophy &amp; Experience
           </h2>
           <p className="section-intro muted">
-            Computer science undergraduate at Quaid-i-Azam University, Islamabad. I believe in practical mastery through building full-cycle projects—from architecture and UI design to testing and deployment.
+            Computer science undergraduate at Quaid-i-Azam University, Islamabad. I believe in practical mastery through building full-cycle projects, from architecture and UI design to testing and deployment.
           </p>
         </div>
 
